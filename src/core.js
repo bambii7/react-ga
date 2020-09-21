@@ -27,6 +27,9 @@ let _testMode = false;
 let _alwaysSendToDefaultTracker = true;
 let _redactEmail = true;
 
+const _DIMENSION_KEY_LENGTH = 'dimension'.length;
+const _METRIC_KEY_LENGTH = 'dimension'.length;
+
 const internalGa = (...args) => {
   if (_testMode) return TestModeAPI.ga(...args);
   if (_isNotBrowser) return false;
@@ -362,13 +365,13 @@ export function event(
     }
 
     Object.keys(args)
-      .filter((key) => key.substr(0, 'dimension'.length) === 'dimension')
+      .filter((key) => key.substr(0, _DIMENSION_KEY_LENGTH) === 'dimension')
       .forEach((key) => {
         fieldObject[key] = args[key];
       });
 
     Object.keys(args)
-      .filter((key) => key.substr(0, 'metric'.length) === 'metric')
+      .filter((key) => key.substr(0, _METRIC_KEY_LENGTH) === 'metric')
       .forEach((key) => {
         fieldObject[key] = args[key];
       });
